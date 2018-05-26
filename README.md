@@ -22,8 +22,7 @@ Install dependancies:
 
 Paste following script just before </head> tag at the website where you want to implement push notifications. Works with HTTP and HTTPS.
 
-`
-<script>
+`<script>
     (function() {
         var script = document.createElement("script")
         script.type = "text/javascript";
@@ -34,8 +33,7 @@ Paste following script just before </head> tag at the website where you want to 
         script.src = 'https://webpush.domain.com/js/notification.js';
         document.getElementsByTagName("head")[0].appendChild(script);
     })();
-</script>
-`
+</script>`
 
 Replace "webpush.domain.com" with at mentioned script with your HTTPS domain. Also change "webpush.domain.com" in /public/js/notification.js
 
