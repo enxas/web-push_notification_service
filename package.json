@@ -1,0 +1,13 @@
+{
+  "name": "web-push",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "1.18.2",
+    "express": "4.16.3",
+    "express-static": "1.2.5",
+    "mime": "^2.3.1",
+    "mongoose": "^5.1.2",
+    "urlsafe-base64": "^1.0.0",
+    "web-push": "3.3.0"
+  }
+}

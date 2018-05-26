@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <title>Web-Push Notification Demo</title>
+  </head>
+
+  <body>
+	<b>Active subscribers: <span id="subscribersNo"></span></b>
+	<br>
+	Number of active subscribers may be higher than actual subscribers, because server doesn't get notified when user delets subscription from it's browser.
+	<br>
+	Active subscribers number is updated only when sending notifications, because only then we can see how many of subscribed users receive notifications.
+	<br>
+	<br>
+	<img src="https://i.imgur.com/45AyM6t.png">
+	<br>
+	<br>
+	
+	  Title (1):<br>
+	  <input type="text" id="title" value="Package Delivery!" size="100%">
+	  <br>
+	  Message (2):<br>
+	  <input type="text" id="message" value="Your package has been shipped from postal service and will arrive at your location soon." size="100%">
+	  <br>
+	  Action Text (3):<br>
+	  <input type="text" id="action_text" value="Click here to open Google Maps and track delivery" size="100%">
+	  <br>
+	  Icon URL (4):<br>
+	  <input type="text" id="icon_url" value="https://cdn2.iconfinder.com/data/icons/ios-7-style-metro-ui-icons/128/MetroUI_Office_2013.png" size="100%">
+	  <br>
+	  Notification URL (5):<br>
+	  <input type="text" id="notification_url" value="https://www.google.com" size="100%">
+	  <br>
+	  Action URL (6):<br>
+	  <input type="text" id="action_url" value="https://www.bing.com" size="100%">
+	  <br>
+	  Automatically Hide Notification After Period (seconds):<br>
+	  <input type="text" id="notification_timer" value="30" size="100%">
+	  <br><br>
+	  
+	  <button onclick="sendNotifications()">Send Notifications</button>
+	
+	
+	
+<script>
+	const subscribersNoSpan = document.getElementById('subscribersNo');
+	fetch('/subscribers')
+	.then((resp) => resp.json())
+	.then(function(data) {
+		subscribersNoSpan.innerHTML = data.amount;
+	})
+	.catch(function(error) {
+		console.log(`Fetch error: ${error}`);
+	});  
+		
+	function sendNotifications() {
+		const notification_data = {
+			 title: document.getElementById('title').value,
+			 message: document.getElementById('message').value,
+			 action_text: document.getElementById('action_text').value,
+			 icon_url: document.getElementById('icon_url').value,
+			 notification_url: document.getElementById('notification_url').value,
+			 action_url: document.getElementById('action_url').value,
+			 notification_timer: document.getElementById('notification_timer').value
+		}
+			
+		// The parameters we are passing to the fetch function
+		let fetchData = {
+			method: 'POST', 
+			body: JSON.stringify(notification_data),
+			headers: {
+				'content-type': 'application/json'
+			}
+		}
+		
+		fetch('/sendNotifications', fetchData)
+		.then(function(response) {
+			console.log(`Fetch success:`);
+			// Handle response you get from the server
+		})
+		.catch(function(error) {
+			console.log(`Fetch error: ${error}`);
+		});
+	} 
+</script>
+
+  </body>
+</html>
